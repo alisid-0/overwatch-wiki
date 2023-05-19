@@ -2,7 +2,22 @@
 body{
     font-family: 'Bank Sans EF CY Lig', serif;
     align-items: center;
-    background-color: #000026;
+    
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: url('images/bg1.png');
+    /* background-repeat: no-repeat; */
+    background-attachment: fixed;
+    background-size: 100%;
+    filter: blur(5px); 
   }
 
 header{
@@ -35,6 +50,7 @@ h3{
     color: white;
     font-size: 30px;
 }
+
 h4{
     color: white;
     font-size: 20px;
@@ -70,10 +86,7 @@ h4{
     padding: 1px;
 }
 
-#role-div img:hover{
-    padding: 0px;
-    border: 1px solid aqua;
-}
+
  
 .role-title{
     padding-left: 75px;
@@ -84,9 +97,14 @@ h4{
     width: 100%;
     padding: 5% 10% 5% 10%;
     text-align: center;
-    color: black;
-    background-color:#D9D9D9;
+    color: white;
+    background-color:#d9d9d944;
     border-radius: 60px;
+}
+
+#role-div img:hover{
+    padding: 0px;
+    border: 1px solid aqua;
 }
 
 #gamemode-div{
@@ -143,8 +161,8 @@ h4{
 }
 
 .gamemode-desc{
-    background-color: #D9D9D9;
-    color: black;
+    background-color: #d9d9d930;
+    color: white;
     border-radius: 60px;
     min-width: 100%;
     text-align: center;
@@ -154,4 +172,26 @@ h4{
 #gamemodes-div img:hover{
     padding: 0px;
     border: 1px solid aqua;
+}
+
+#map-div{
+    display: flex;
+    flex-direction: column;
+}
+
+#maps-section-title{
+    width: 40%;
+}
+
+.hidden{
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateX(-100%);
+    transition: all 1s;
+}
+
+.show{
+    opacity: 1;
+    filter: blur(0);
+    transform: translateX(0);
 }
