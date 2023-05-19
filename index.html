@@ -20,7 +20,29 @@
     </header>
 
     <main>
-        <h1>Heroes</h1>
+        <div id="hero-div">
+            <h1 id="heroes-section-title">Heroes</h1>
+            <div id="role-div">
+                <div class="role-block" id="role-tank">
+                    <h3 class="role-title">Tank</h3>
+                    <img id="img-enlarge"src="images/rein.jpg" alt="">
+                    <h4 class="role-desc">Tank heroes soak up damage and shatter fortified positions, like closely grouped enemies and narrow chokepoints. If you’re a tank, you lead the charge.</h4>
+                </div>
+                <div class="role-block" id="role-damage">
+                    <h3 class="role-title">Damage</h3>
+                    <img src="images/genji.jpg" alt="">
+                    <h4 class="role-desc">Damage heroes seek out, engage, and obliterate the enemy with wide-ranging tools, abilities, and play styles. Fearsome but fragile, these heroes require backup to survive.</h4>
+                </div>
+                <div class="role-block" id="role-support">
+                    <h3 class="role-title">Support</h3>
+                    <img src="images/mercy.jpg" alt="">
+                    <h4 class="role-desc">Support heroes empower their allies by healing, shielding, boosting damage, and disabling foes. As a support, you’re the backbone of your team’s survival.</h4>
+                </div>
+            </div>
+        </div>
+        <div id="gamemode-div"></div>
+        <div id="map-div"></div>
+        
         <button id="heroes-button">Heroes</button>
         <input type="text" name="hero-search" id="hero-search">
         <button id="hero-search-button">Go!</button>
