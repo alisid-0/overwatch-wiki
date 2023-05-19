@@ -1,1 +1,1 @@
-# overwatch-wiki
+# Overwatch Wiki
