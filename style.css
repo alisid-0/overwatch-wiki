@@ -42,9 +42,6 @@ h4{
 
 #hero-div{
     width: 100%;
-    /* flex:row;
-    justify-content: flex-start;
-    align-items: flex-start; */
 }
 
 #heroes-section-title{
@@ -70,6 +67,12 @@ h4{
 #role-div img{
     width:109%;
     border-radius: 60px;
+    padding: 1px;
+}
+
+#role-div img:hover{
+    padding: 0px;
+    border: 1px solid aqua;
 }
  
 .role-title{
@@ -86,6 +89,69 @@ h4{
     border-radius: 60px;
 }
 
+#gamemode-div{
+    padding-top: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
 
+#gamemodes-div{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
 
+#gamemodes-section-title{
+    text-align: center;
+    width: 40%;
+}
 
+#gamemodes-line-1{
+    display: flex;
+    width: 100%;
+    padding-left: 0%;
+}
+
+#gamemodes-line-2{
+    display: flex;
+    width: 100%;
+    margin-left: 0%;
+}
+
+#gamemodes-div img{
+    min-width: 100%;
+    padding: 1px;
+    border-radius: 60px;
+    max-width:max-content;
+}
+
+.gamemode-block{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-left: 10%;
+}
+
+.gamemode-block-2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-right: 10%;
+}
+
+.gamemode-desc{
+    background-color: #D9D9D9;
+    color: black;
+    border-radius: 60px;
+    min-width: 100%;
+    text-align: center;
+    margin: 5% 10% 5% 10%;
+}
+
+#gamemodes-div img:hover{
+    padding: 0px;
+    border: 1px solid aqua;
+}
