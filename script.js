@@ -1,6 +1,36 @@
+// global variables
+
+const $header = $(`header`)
+const $body = $(`body`)
+
+const $heroDiv = $(`#hero-div`)
+const $gamemodeDiv = $(`#gamemode-div`)
+const $mapDiv = $(`#map-div`)
+
+const divsArray = [$heroDiv, $gamemodeDiv, $mapDiv]
+
+const $heroImg = $(`.hero-img`)
+const $gamemodeImg = $(`.gamemode-img`)
+const $mapImg = $(`.map-img`)
+
+const imgArray =[$heroImg, $gamemodeImg, $mapImg]
+
+for (let i of imgArray){
+    $(i).on(`click`, ()=>{
+    $header.addClass(`hidden`)
+    divsArray.forEach((div)=>{
+        $(div).removeClass(`show`)
+        setTimeout(()=>{
+            $(div).remove()
+            $header.remove()
+        },500)
+    })
+    })
+}
+
+// animation section
 const observer = new IntersectionObserver((i)=>{
     i.forEach((j) =>{
-        console.log(j)
         if (j.isIntersecting){
             j.target.classList.add(`show`)
         } else {
@@ -10,26 +40,14 @@ const observer = new IntersectionObserver((i)=>{
 })
 
 
+
+
 const hiddenElements = document.querySelectorAll(`.hidden`)
 hiddenElements.forEach((i)=> observer.observe(i))
 
-
-
-
-const $buttonHeroes = $(`#heroes-button`)
-const $input = $(`#hero-search`)
-const $inputButton = $(`#hero-search-button`)
-const $heroDetails = $(`#hero-details`)
-
-
-$buttonHeroes.on(`click`, async()=>{
+const heroesGet = async()=>{
     const apiGet = await axios.get(`https://overfast-api.tekrop.fr/heroes`)
     console.log(apiGet)
-})
+}
 
-$inputButton.on(`click`, async ()=>{
-    const $inputVal = $input.val()
-    const apiGet = await axios.get(`https://overfast-api.tekrop.fr/heroes/${$input.val()}`)
-    $heroDetails.html(`${apiGet.data.description}`)
-    console.log(apiGet)
-})
+heroesGet()
