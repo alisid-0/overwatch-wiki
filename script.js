@@ -15,6 +15,7 @@ const $mapImg = $(`.map-img`)
 
 const imgArray =[$heroImg, $gamemodeImg, $mapImg]
 
+
 const $heroPage = $(`#heroes-page`)
 $heroPage.remove()
 
@@ -55,6 +56,13 @@ const pageClear = ()=>{
     })
 }
 
+const contentClear = ()=>{
+    $(`.section-spread`).addClass(`hidden`)
+    setTimeout(()=>{
+        $(`.section-spread`).remove()
+    },500)
+}
+
 const pageAdd = (page)=>{
     $(page).appendTo($body)
     $(page).addClass(`hidden`)
@@ -69,7 +77,14 @@ const imgAdd = async(link, key) =>{
     $img.attr(`class`, `section-img`)
     $(`.section-spread`).append($img)
     $img.on(`click`, async()=>{
-        await heroGet(key)
+        const heroInfo = await heroGet(key)
+        // console.log(heroInfo)
+        contentClear()
+        $(`.section-title`).html(heroInfo.name)
+        $(`.info-img`).attr(`src`,heroInfo.portrait)
+        $(`#desc`).html(`Description: ${heroInfo.description}`)
+        $(`#location`).html(`Location: ${heroInfo.location}`)
+        $(`#role`).html(`Role: ${heroInfo.role}`)
     })
 }
 
@@ -91,12 +106,12 @@ for (let i of $heroImg){
         } else if ($(i).attr(`id`) == `genji`){
             $(`#hero-section-title`).html(`Damage`)
             for (let j of heroesData){
-                j.role == `damage` ? imgAdd(j.portrait) : null
+                j.role == `damage` ? imgAdd(j.portrait, j.key) : null
             }
         } else if ($(i).attr(`id`) == `mercy`){
             $(`#hero-section-title`).html(`Support`)
             for (let j of heroesData){
-                j.role == `support` ? imgAdd(j.portrait) : null
+                j.role == `support` ? imgAdd(j.portrait, j.key) : null
             }
         }
     })
