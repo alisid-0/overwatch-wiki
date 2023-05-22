@@ -35,6 +35,10 @@ img{
 }
 
 
+header img{
+    background-color:#504c4c00;
+}
+
 img:hover{
     padding: 0px;
     border: 1px solid aqua;
@@ -282,12 +286,13 @@ h4{
 #pic-desc{
     display: flex;
     flex-direction: row;
+    justify-content: center;
     gap: 100px;
     padding: 0px 20px 0px 20px;
 }
 
 .info-img{
-    width: 30%;
+    /* width: 30%; */
     border-radius: 60px;
 }
 
@@ -300,6 +305,7 @@ h4{
     text-align: center;
     padding-left: 1%;
     height:100%;
+    width: 80%;
 }
 
 .info-text{
@@ -308,6 +314,110 @@ h4{
 
 #role{
     text-transform:capitalize;
+}
+
+.hero{
+    width: 25%;
+    aspect-ratio: 1;
+}
+
+.info-div{
+    display: flex;
+    flex-direction: column;
+}
+
+video{
+    max-width: 800px;
+    border-radius: 20px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+#ability-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#ability-div img{
+    padding-top: 0px;
+    margin-top: 0px;
+    max-width: 100px;
+    background: none;
+}
+.ability-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.ability-name{
+    font-size: 50px;
+    background-color: #d9d9d930;
+    border-radius: 60px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.ability-desc{
+    font-size: 25px;
+}
+
+.section{
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 20px;
+}
+
+#story-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+iframe{
+    width: 1280px;
+    height: 720px;
+    border-radius: 20px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.chapter-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chapter-title{
+    font-size: 50px;
+    background-color: #d9d9d944;
+    border-radius: 60px;
+    padding: 10px;
+}
+
+.chapter-desc{
+    text-align: center;
+    font-size: 25px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+    background-color: #d9d9d930;
+    border-radius: 60px;
+}
+
+.summary{
+    text-align: center;
+    font-size: 25px;
+    padding: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+    background-color: #d9d9d930;
+    border-radius: 60px;
+}
+
+button{
+    font-family: 'Bank Sans EF CY Lig', serif;
+    font-size: 15px;
+    margin-left: 100px;
 }
 
 /* animations */
