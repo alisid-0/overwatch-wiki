@@ -30,6 +30,9 @@ $infoPage.remove()
 
 const $sectionTitle = $(`.section-title`)
 
+const $buttonHome = $(`#button-home`)
+const $sectionTitleDiv = $(`#section-title-div`)
+
 // animation section
 
 const observer = new IntersectionObserver((i)=>{
@@ -74,8 +77,12 @@ const pageAdd = (page)=>{
     },500)
 }
 
-$(`#button-home`).on(`click`, ()=>{
-    $(`.page`).removeClass(`show`)
+$(`.home`).on(`click`, ()=>{
+    console.log(`hi`)
+})
+
+$(`.button1`).on(`click`, ()=>{
+    console.log(`hi`)
 })
 
 const heroesGet = async()=>{
@@ -130,35 +137,64 @@ const infoSetHero = async(key)=>{
     const $summary = $(`.summary`)
     $summary.html(getApi.story.summary)
     
-    const link = getApi.story.media.link
-    console.log(link)
-    console.log(link.substring(17))
-    console.log(extractVideoIdFromLink(link))
-    console.log(link.substring(link-11))
-    const idVideo = extractVideoIdFromLink(link)
+    if (getApi.story.media != null){
+        const link = getApi.story.media.link
+        console.log(link)
+        console.log(link.substring(17))
+        console.log(extractVideoIdFromLink(link))
+        console.log(link.substring(link-11))
+        const idVideo = extractVideoIdFromLink(link)
+    
+        const $heroVideo = $('<div />', {
+            id: 'player'
+          }).appendTo('#story-div');
+          
+          const tag = document.createElement('script');
+          tag.src = 'https://www.youtube.com/iframe_api';
+          const firstScriptTag = document.getElementsByTagName('script')[0];
+          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+          
+          window.onYouTubeIframeAPIReady = function() {
+            new YT.Player('player', {
+              videoId: idVideo, 
+              playerVars: {
+                autoplay: 1,
+                controls: 1,
+                loop: 1,
+                playlist: idVideo 
+              }
+            });
+          };
+    }
+    // const link = getApi.story.media.link
+    // console.log(link)
+    // console.log(link.substring(17))
+    // console.log(extractVideoIdFromLink(link))
+    // console.log(link.substring(link-11))
+    // const idVideo = extractVideoIdFromLink(link)
 
-    const $heroVideo = $('<div />', {
-        id: 'player'
-      }).appendTo('#story-div');
+    // const $heroVideo = $('<div />', {
+    //     id: 'player'
+    //   }).appendTo('#story-div');
       
-      // Load the YouTube IFrame API
-      const tag = document.createElement('script');
-      tag.src = 'https://www.youtube.com/iframe_api';
-      const firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    //   // Load the YouTube IFrame API
+    //   const tag = document.createElement('script');
+    //   tag.src = 'https://www.youtube.com/iframe_api';
+    //   const firstScriptTag = document.getElementsByTagName('script')[0];
+    //   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
       
-      // Function called when YouTube API is ready
-      window.onYouTubeIframeAPIReady = function() {
-        new YT.Player('player', {
-          videoId: idVideo, // Extract the video ID from the YouTube link
-          playerVars: {
-            autoplay: 1,
-            controls: 1,
-            loop: 1,
-            playlist: idVideo // Repeat the same video
-          }
-        });
-      };
+    //   // Function called when YouTube API is ready
+    //   window.onYouTubeIframeAPIReady = function() {
+    //     new YT.Player('player', {
+    //       videoId: idVideo, // Extract the video ID from the YouTube link
+    //       playerVars: {
+    //         autoplay: 1,
+    //         controls: 1,
+    //         loop: 1,
+    //         playlist: idVideo // Repeat the same video
+    //       }
+    //     });
+    //   };
 
     for (let j of getApi.story.chapters){
         const $chapterContainer = $(`<div class="chapter-container">`)
@@ -203,9 +239,12 @@ for (let i of $heroImg){
         const heroesApi = await heroesGet()
         const heroesData = heroesApi.data
         console.log(heroesData)
-        // const $backButtonHome = $(`<button class="button-home">`)
-        // $backButtonHome.html(`Back`)
-        // $body.append($backButtonHome)
+        const $backButtonHome = $(`<button class="button-home">`)
+        $backButtonHome.html(`Back`)
+        $sectionTitleDiv.append($backButtonHome)
+        $backButtonHome.on(`click`, ()=>{
+            console.log(`hi`)
+        })
         if ($(i).attr(`id`) == `rein`){
             $(`#hero-section-title`).html(`Tank`)
             for (let j of heroesData){
