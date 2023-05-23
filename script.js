@@ -26,33 +26,6 @@ const noVideo = [`zarya`, `pharah`, `reaper`, `symmetra`, `torbjorn`, `tracer`, 
 
 // functions
 
-// const pageClear = ()=>{
-//     $header.addClass(`hidden`)
-//     divsArray.forEach((div)=>{
-//         $(div).removeClass(`show`)
-//         setTimeout(()=>{
-//             $(div).remove()
-//             $header.remove()
-//         },500)
-//     })
-// }
-
-// const contentClear = ()=>{
-//     $(`.section-spread`).addClass(`hidden`)
-//     setTimeout(()=>{
-//         $(`.section-spread`).remove()
-//     },500)
-// }
-
-// const pageAdd = (page)=>{
-//     $(page).appendTo($body)
-//     $(page).addClass(`hidden`)
-//     setTimeout(()=>{
-//         $(page).addClass(`show`)
-//     },500)
-// }
-
-
 // Get list of Heroes on Page 1
 
 const heroesGet = async()=>{
@@ -69,14 +42,22 @@ const heroGet = async(hero)=>{
     return apiGet.data
 }
 
+const getMaps = async()=>{
+    const apiGet = await axios.get(`https://overfast-api.tekrop.fr/maps`)
+    apiData = apiGet.data
+    return apiData
+}
+
+const getGamemodes = async()=>{
+    const apiGet = await axios.get(`https://overfast-api.tekrop.fr/gamemodes`)
+    apiData = apiGet.data
+    return apiData
+}
+
 function extractVideoIdFromLink(link) {
     const match = link.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^?&]+)/);
     return match ? match[1] : '';
-  }
-
-
-  
-
+}
 
 const imgAdd = async(link, key, className) =>{
     const $img = $(`<img>`)  
@@ -85,10 +66,10 @@ const imgAdd = async(link, key, className) =>{
     $img.on('click', async()=>{
         console.log(`hi`)
         const heroInfo = await heroGet(key)
-        $heroPage.addClass(`hide`)
+        // $heroPage.addClass(`hide`)
+        pageHide($heroPage)
         $(`info-page`).addClass(`hide`)
         infoSetHero(key)
-        // $(`.section-title`).html(heroInfo.name)
         $(`.info-img`).attr(`src`,heroInfo.portrait)
         $(`.info-img`).attr(`class`, `info-img ${className}`)
         $(`#desc`).html(`Description: ${heroInfo.description}`)
@@ -121,8 +102,6 @@ $backButton.on(`click`, ()=>{
         $header.removeClass(`hide`)
         $header.addClass(`show`)
         $(`.home-page`).removeClass(`hide`)
-        // pageHide($(`#heroes-page`))
-        // $(`#heroes-page`).addClass(`hide`)
     },500)
     
     
@@ -131,10 +110,13 @@ $backButton.on(`click`, ()=>{
 const $infoBack = $(`.info-back`)
 
 $infoBack.on(`click`,()=>{
-    $infoPage.addClass(`hide`)
-    $heroPage.removeClass(`hide`)
-    $(`.ability-container`).remove()
-    $(`.chapter-container`).remove()
+    pageHide($infoPage)
+    setTimeout(()=>{
+        $heroPage.removeClass(`hide`)
+        $(`.ability-container`).remove()
+        $(`.chapter-container`).remove()
+    })
+    $(`#player`).remove()
 })
 
 
@@ -192,6 +174,7 @@ const infoSetHero = async(key)=>{
             loop: true,
             autoplay: true,
         })
+        
 
         $abilityContainer.attr(`class`, `ability-container`)
         $abilityName.html(i.name)
@@ -210,8 +193,6 @@ const infoSetHero = async(key)=>{
 
     let found = false
     for (let i of noVideo){
-        console.log(i)
-        console.log(key)
         if (i==key){
             found = true
             break
@@ -225,30 +206,36 @@ const infoSetHero = async(key)=>{
         console.log(extractVideoIdFromLink(link))
         console.log(link.substring(link-11))
         const idVideo = extractVideoIdFromLink(link)
-    
+        
         const $heroVideo = $('<div />', {
             id: 'player'
           }).appendTo('#story-div');
           
-          const tag = document.createElement('script');
-          tag.src = 'https://www.youtube.com/iframe_api';
-          const firstScriptTag = document.getElementsByTagName('script')[0];
-          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
           
-          window.onYouTubeIframeAPIReady = function() {
-            new YT.Player('player', {
-              videoId: idVideo, 
-              playerVars: {
-                autoplay: 1,
-                controls: 1,
-                loop: 1,
-                playlist: idVideo 
-              }
-            });
-          };
-
-          
+        if (typeof YT !== 'undefined' && YT.loaded) {
+            createYouTubePlayer(idVideo);
+          } else {
+            window.onYouTubeIframeAPIReady = () => {
+              createYouTubePlayer(idVideo);
+            };
+          } 
     }
+
+    function createYouTubePlayer(videoId) {
+        new YT.Player('player', {
+          videoId: videoId,
+          playerVars: {
+            autoplay: 1,
+            controls: 1,
+            loop: 1,
+            playlist: videoId,
+          },
+        });
+      }
 
     for (let j of getApi.story.chapters){
         const $chapterContainer = $(`<div class="chapter-container">`)
@@ -268,14 +255,41 @@ const infoSetHero = async(key)=>{
 
 
 for (let i of $gamemodeImg){
-    $(i).on(`click`, ()=>{
-    // pageAdd($gamemodesPage)
+    $(i).on(`click`, async()=>{
+        pageHide(`.home-page`)
+        $gamemodesPage.removeClass(`hide`)
+        const gamemodesList = await getGamemodes()
+        console.log(gamemodesList)
+        for (let i of gamemodesList){
+            const $gmDiv = $(`<div>`)
+            const $img = $(`<img>`)
+            const $gmName = $(`<h4 class="gm-name">`)
+            const $gmDesc = $(`<h4 class="gm-desc">`)
+            $gmName.html(i.name)
+            $gmDesc.html(i.description)
+            $gmDiv.attr(`class`, `gm-div`)
+            $img.attr(`src`,i.screenshot)
+            $img.attr(`class`, `gm-img`)
+            $gmName.appendTo($gmDiv)
+            $img.appendTo($gmDiv)
+            $gmDesc.appendTo($gmDiv)
+            $gmDiv.appendTo(`#gamemodes-section-spread`)
+        }
+
     })
 }
 
 for (let i of $mapImg){
-    $(i).on(`click`, ()=>{
-    // pageAdd($mapsPage)
+    $(i).on(`click`, async()=>{
+        pageHide(`.home-page`)
+        $mapsPage.removeClass(`hide`)
+        const mapList = await getMaps()
+        console.log(mapList)
+        for(let i of mapList){
+            const $img = $(`<img>`)
+            $img.attr(`src`,i.screenshot)
+            $img.appendTo(`#maps-section-spread`)
+        }
     })
 }
 
@@ -294,3 +308,20 @@ const observer = new IntersectionObserver((i)=>{
 
 const hiddenElements = document.querySelectorAll(`.hidden`)
 hiddenElements.forEach((i)=> observer.observe(i))
+
+
+$(document).ready(function() {
+    $(window).scroll(function() {
+      var scroll = $(window).scrollTop();
+      var opacity = 1 - scroll / 8000 
+  
+      $(".background").css("opacity", opacity)
+  
+      if (scroll > 0) {
+        $(".background").addClass("dark")
+      } else {
+        $(".background").removeClass("dark")
+      }
+    })
+  })
+  
