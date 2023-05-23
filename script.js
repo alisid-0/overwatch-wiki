@@ -11,13 +11,13 @@ const $gamemodeImg = $(`.gamemode-img`)
 const $mapImg = $(`.map-img`)
 const imgArray =[$heroImg, $gamemodeImg, $mapImg]
 const $heroPage = $(`#heroes-page`)
-$heroPage.remove()
+// $heroPage.remove()
 const $gamemodesPage = $(`#gamemodes-page`)
-$gamemodesPage.remove()
+// $gamemodesPage.remove()
 const $mapsPage = $(`#maps-page`)
-$mapsPage.remove()
+// $mapsPage.remove()
 const $infoPage = $(`.info-page`)
-$infoPage.remove()
+// $infoPage.remove()
 const $sectionTitle = $(`.section-title`)
 const $sectionTitleDiv = $(`#section-title-div`)
 const $infoSpread = $(`.info-spread`)
@@ -75,7 +75,47 @@ function extractVideoIdFromLink(link) {
   }
 
 
-// Hero Page 2
+
+const imgAdd = async(link, key, className) =>{
+    const $img = $(`<img>`)  
+    $img.attr(`src`, `${link}`)
+    $img.attr(`class`, `section-img`)
+    $img.on('click', async()=>{
+        console.log(`hi`)
+        const heroInfo = await heroGet(key)
+        $heroPage.addClass(`hide`)
+        $(`info-page`).addClass(`hide`)
+        infoSetHero(key)
+        $(`.section-title`).html(heroInfo.name)
+        $(`.info-img`).attr(`src`,heroInfo.portrait)
+        $(`.info-img`).attr(`class`, `info-img ${className}`)
+        $(`#desc`).html(`Description: ${heroInfo.description}`)
+        $(`#location`).html(`Location: ${heroInfo.location}`)
+        $(`#role`).html(`Role: ${heroInfo.role}`)
+        $infoPage.removeClass(`hide`)
+        
+    })
+    $(`.section-spread`).append($img)
+}
+
+const $infoBack = $(`.info-back`)
+
+$infoBack.on(`click`,()=>{
+    $infoPage.addClass(`hide`)
+    $heroPage.removeClass(`hide`)
+    $(`iframe`).contentWindow.postMessage(JSON.stringify({ event: 'command', 
+    func: 'stopVideo' }))
+    videoStopper($heroVideo)
+})
+
+
+
+  
+
+
+
+
+
 
 const infoSetHero = async(key)=>{
     const getApi = await heroGet(key)
@@ -150,6 +190,8 @@ const infoSetHero = async(key)=>{
               }
             });
           };
+
+          
     }
 
     for (let j of getApi.story.chapters){
@@ -167,72 +209,16 @@ const infoSetHero = async(key)=>{
     }
 }
 
-const imgAdd = async(link, key, className) =>{
-    const $img = $(`<img>`)  
-    $img.attr(`src`, `${link}`)
-    $img.attr(`class`, `section-img`)
-    $(`.section-spread`).append($img)
-    $img.on(`click`, async()=>{
-        const heroInfo = await heroGet(key)
-        pageAdd($infoPage)
-        infoSetHero(key)
-        $(`.section-title`).html(heroInfo.name)
-        $(`.info-img`).attr(`src`,heroInfo.portrait)
-        $(`.info-img`).attr(`class`, `info-img ${className}`)
-        $(`#desc`).html(`Description: ${heroInfo.description}`)
-        $(`#location`).html(`Location: ${heroInfo.location}`)
-        $(`#role`).html(`Role: ${heroInfo.role}`)
-        contentClear()
-    })
-}
-
-const heroPageClear = ()=>{
-    setTimeout(()=>{
-        $($heroPage).removeClass(`show`)
-    },500)
-    divsArray.forEach((div)=>{
-        $(div).addClass(`show`)
-        setTimeout(()=>{
-            $body.append($header)
-            $body.append($(div))
-        },500)
-    })
-}
-
-  
-
-const pageClear = ()=>{
-    $header.addClass(`hidden`)
-    divsArray.forEach((div)=>{
-        $(div).removeClass(`show`)
-        setTimeout(()=>{
-            $(div).remove()
-            $header.remove()
-        },500)
-    })
-}
-
-const contentClear = ()=>{
-    $(`.section-spread`).addClass(`hidden`)
-    setTimeout(()=>{
-        $(`.section-spread`).remove()
-    },500)
-}
-
-const pageAdd = (page)=>{
-    $(page).appendTo($body)
-    $(page).addClass(`hidden`)
-    setTimeout(()=>{
-        $(page).addClass(`show`)
-    },500)
-}
-
 // event listeners
 
 for (let i of $heroImg){ 
     $(i).on(`click`, async()=>{
-        pageClear()
-        pageAdd($heroPage)
+        setTimeout(()=>{
+            $(`#hero-div`).addClass(`hide`)
+            $(`#gamemode-div`).addClass(`hide`)
+            $(`#map-div`).addClass(`hide`)
+        },0)
+        $heroPage.removeClass(`hide`)
         const heroesApi = await heroesGet()
         const heroesData = heroesApi.data
         console.log(heroesData)
@@ -240,8 +226,9 @@ for (let i of $heroImg){
         $backButton.html(`Back`)
         $heroPage.append($backButton)
         $backButton.on(`click`, ()=>{
-            console.log(`hi`)
-            heroPageClear()
+            $(`#hero-div`).removeClass(`hide`)
+            $(`#gamemode-div`).removeClass(`hide`)
+            $(`#map-div`).removeClass(`hide`)
         })
         if ($(i).attr(`id`) == `rein`){
             $(`#hero-section-title`).html(`Tank`)
@@ -265,14 +252,12 @@ for (let i of $heroImg){
 
 for (let i of $gamemodeImg){
     $(i).on(`click`, ()=>{
-    pageClear()
     pageAdd($gamemodesPage)
     })
 }
 
 for (let i of $mapImg){
     $(i).on(`click`, ()=>{
-    pageClear()
     pageAdd($mapsPage)
     })
 }
