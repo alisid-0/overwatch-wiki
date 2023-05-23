@@ -3,9 +3,10 @@ body{
     font-family: 'Bank Sans EF CY Lig', serif;
     align-items: center;
     overflow-y: scroll;
+    background-color: black;
   }
 
-  body::before {
+  /* body::before {
     content: "";
     position: fixed;
     top: 0;
@@ -14,10 +15,29 @@ body{
     height: 100%;
     z-index: -1;
     background-image: url('images/bg1.png');
-     background-attachment: fixed;
+    background-attachment: fixed;
     background-size: 100%;
     filter: blur(5px); 
-  } 
+  }  */
+
+  .background{
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: url('images/bg1.png');
+    background-attachment: fixed;
+    background-size: 100%;
+    filter: blur(5px); 
+    transition: opacity 0.5s ease;
+  }
+
+  .background.dark{
+    opacity:0.5s;
+  }
 
 header{
     background-color:#d9d9d9b0;
@@ -283,6 +303,16 @@ h4{
     align-items: center;
 }
 
+#hero-name{
+    margin-left: -60%;
+    width: 40%;
+}
+
+.info-back{
+    margin-left: -80%;
+    margin-bottom: 20px;
+}
+
 #pic-desc{
     display: flex;
     flex-direction: row;
@@ -414,11 +444,59 @@ iframe{
     border-radius: 60px;
 }
 
-/* #button-home{
-    font-family: 'Bank Sans EF CY Lig', serif;
-    font-size: 15px;
-    margin-left: 100px; */
-/* } */
+#maps-section-spread{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#gamemodes-section-spread{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.gm-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.gm-name{
+    font-size:30px;
+    background-color: #d9d9d930;
+    border-radius: 60px;
+    padding: 10px;
+}
+
+.gm-desc{
+    width: 300px;
+    text-align: center;
+    background-color:#d9d9d930;
+    border-radius: 60px;
+    padding: 20px;
+}
+
+.gm-img{
+    max-width: 600px;
+    border-radius: 60px;
+}
+
+button{
+    font-family: 'Bank Sans EF CY LigObl', serif;
+    font-size: 20px;
+    margin-left: 100px;
+    background: #d9d9d930;
+    box-shadow: none;
+    border-radius: 5px;
+    color: orange;
+    text-shadow: none;
+}
 
 /* animations */
 
@@ -437,4 +515,13 @@ iframe{
 
 .darken{
     opacity: 0.5;
+}
+
+.hide{
+    display: none !important;
+}
+
+.dark-background {
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity (0.5 in this example) to control the darkness */
+    transition: background-color 0.5s ease; /* Smooth transition for background color change */
 }
