@@ -75,6 +75,8 @@ function extractVideoIdFromLink(link) {
   }
 
 
+  
+
 
 const imgAdd = async(link, key, className) =>{
     const $img = $(`<img>`)  
@@ -86,7 +88,7 @@ const imgAdd = async(link, key, className) =>{
         $heroPage.addClass(`hide`)
         $(`info-page`).addClass(`hide`)
         infoSetHero(key)
-        $(`.section-title`).html(heroInfo.name)
+        // $(`.section-title`).html(heroInfo.name)
         $(`.info-img`).attr(`src`,heroInfo.portrait)
         $(`.info-img`).attr(`class`, `info-img ${className}`)
         $(`#desc`).html(`Description: ${heroInfo.description}`)
@@ -98,29 +100,83 @@ const imgAdd = async(link, key, className) =>{
     $(`.section-spread`).append($img)
 }
 
+
+const pageHide = (page)=>{
+    $(page).removeClass(`show`)
+    setTimeout(()=>{
+        $(page).addClass(`hide`)
+    },500)
+    
+}
+
+
+const $backButton = $(`<button>`)
+$backButton.html(`Back`)
+$(`#section-title-div`).append($backButton)
+
+$backButton.on(`click`, ()=>{
+    pageHide($(`#heroes-page`))
+    setTimeout(()=>{
+        $(`.section-img`).remove()
+        $header.removeClass(`hide`)
+        $header.addClass(`show`)
+        $(`.home-page`).removeClass(`hide`)
+        // pageHide($(`#heroes-page`))
+        // $(`#heroes-page`).addClass(`hide`)
+    },500)
+    
+    
+})
+
 const $infoBack = $(`.info-back`)
 
 $infoBack.on(`click`,()=>{
     $infoPage.addClass(`hide`)
     $heroPage.removeClass(`hide`)
-    $(`iframe`).contentWindow.postMessage(JSON.stringify({ event: 'command', 
-    func: 'stopVideo' }))
-    videoStopper($heroVideo)
+    $(`.ability-container`).remove()
+    $(`.chapter-container`).remove()
 })
 
 
 
-  
 
 
-
-
+for (let i of $heroImg){ 
+    $(i).on(`click`, async()=>{
+        setTimeout(()=>{
+            pageHide(`.home-page`)
+            $header.addClass(`hidden`)
+            pageHide(`header`)
+        },0)
+        $heroPage.removeClass(`hide`)
+        const heroesApi = await heroesGet()
+        const heroesData = heroesApi.data
+        if ($(i).attr(`id`) == `rein`){
+            $(`#hero-section-title`).html(`Tank`)
+            for (let j of heroesData){
+                j.role == `tank` ? imgAdd(j.portrait, j.key, `hero`) : null
+            }
+            $(`.section-spread`).attr(`id`, `section-spread-tank`)
+        } else if ($(i).attr(`id`) == `genji`){
+            $(`#hero-section-title`).html(`Damage`)
+            for (let j of heroesData){
+                j.role == `damage` ? imgAdd(j.portrait, j.key, `hero`) : null
+            }
+        } else if ($(i).attr(`id`) == `mercy`){
+            $(`#hero-section-title`).html(`Support`)
+            for (let j of heroesData){
+                j.role == `support` ? imgAdd(j.portrait, j.key, `hero`) : null
+            }
+        }
+    })
+}
 
 
 const infoSetHero = async(key)=>{
     const getApi = await heroGet(key)
     const $abilityDiv = $(`#ability-div`)
     const $storyDiv = $(`#story-div`)
+    $(`#hero-name`).html(getApi.name)
     for (let i of getApi.abilities){
         console.log(i.name)
         const $abilityContainer = $(`<div>`)
@@ -209,56 +265,17 @@ const infoSetHero = async(key)=>{
     }
 }
 
-// event listeners
 
-for (let i of $heroImg){ 
-    $(i).on(`click`, async()=>{
-        setTimeout(()=>{
-            $(`#hero-div`).addClass(`hide`)
-            $(`#gamemode-div`).addClass(`hide`)
-            $(`#map-div`).addClass(`hide`)
-        },0)
-        $heroPage.removeClass(`hide`)
-        const heroesApi = await heroesGet()
-        const heroesData = heroesApi.data
-        console.log(heroesData)
-        const $backButton = $(`<button>`)
-        $backButton.html(`Back`)
-        $heroPage.append($backButton)
-        $backButton.on(`click`, ()=>{
-            $(`#hero-div`).removeClass(`hide`)
-            $(`#gamemode-div`).removeClass(`hide`)
-            $(`#map-div`).removeClass(`hide`)
-        })
-        if ($(i).attr(`id`) == `rein`){
-            $(`#hero-section-title`).html(`Tank`)
-            for (let j of heroesData){
-                j.role == `tank` ? imgAdd(j.portrait, j.key, `hero`) : null
-            }
-            $(`.section-spread`).attr(`id`, `section-spread-tank`)
-        } else if ($(i).attr(`id`) == `genji`){
-            $(`#hero-section-title`).html(`Damage`)
-            for (let j of heroesData){
-                j.role == `damage` ? imgAdd(j.portrait, j.key, `hero`) : null
-            }
-        } else if ($(i).attr(`id`) == `mercy`){
-            $(`#hero-section-title`).html(`Support`)
-            for (let j of heroesData){
-                j.role == `support` ? imgAdd(j.portrait, j.key, `hero`) : null
-            }
-        }
-    })
-}
 
 for (let i of $gamemodeImg){
     $(i).on(`click`, ()=>{
-    pageAdd($gamemodesPage)
+    // pageAdd($gamemodesPage)
     })
 }
 
 for (let i of $mapImg){
     $(i).on(`click`, ()=>{
-    pageAdd($mapsPage)
+    // pageAdd($mapsPage)
     })
 }
 
