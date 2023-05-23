@@ -2,94 +2,66 @@
 
 const $header = $(`header`)
 const $body = $(`body`)
-
 const $heroDiv = $(`#hero-div`)
 const $gamemodeDiv = $(`#gamemode-div`)
 const $mapDiv = $(`#map-div`)
-
 const divsArray = [$heroDiv, $gamemodeDiv, $mapDiv]
-
 const $heroImg = $(`.hero-img`)
 const $gamemodeImg = $(`.gamemode-img`)
 const $mapImg = $(`.map-img`)
-
 const imgArray =[$heroImg, $gamemodeImg, $mapImg]
-
-
 const $heroPage = $(`#heroes-page`)
 $heroPage.remove()
-
 const $gamemodesPage = $(`#gamemodes-page`)
 $gamemodesPage.remove()
-
 const $mapsPage = $(`#maps-page`)
 $mapsPage.remove()
-
 const $infoPage = $(`.info-page`)
 $infoPage.remove()
-
 const $sectionTitle = $(`.section-title`)
-
-const $buttonHome = $(`#button-home`)
 const $sectionTitleDiv = $(`#section-title-div`)
+const $infoSpread = $(`.info-spread`)
+const noVideo = [`zarya`, `pharah`, `reaper`, `symmetra`, `torbjorn`, `tracer`, `lucio`, `mercy`]
 
-// animation section
-
-const observer = new IntersectionObserver((i)=>{
-    i.forEach((j) =>{
-        if (j.isIntersecting){
-            j.target.classList.add(`show`)
-        } else {
-            j.target.classList.remove(`show`)
-        }
-    })
-})
-
-
-const hiddenElements = document.querySelectorAll(`.hidden`)
-hiddenElements.forEach((i)=> observer.observe(i))
 
 // functions
 
-const pageClear = ()=>{
-    $header.addClass(`hidden`)
-    divsArray.forEach((div)=>{
-        $(div).removeClass(`show`)
-        setTimeout(()=>{
-            $(div).remove()
-            $header.remove()
-        },500)
-    })
-}
+// const pageClear = ()=>{
+//     $header.addClass(`hidden`)
+//     divsArray.forEach((div)=>{
+//         $(div).removeClass(`show`)
+//         setTimeout(()=>{
+//             $(div).remove()
+//             $header.remove()
+//         },500)
+//     })
+// }
 
-const contentClear = ()=>{
-    $(`.section-spread`).addClass(`hidden`)
-    setTimeout(()=>{
-        $(`.section-spread`).remove()
-    },500)
-}
+// const contentClear = ()=>{
+//     $(`.section-spread`).addClass(`hidden`)
+//     setTimeout(()=>{
+//         $(`.section-spread`).remove()
+//     },500)
+// }
 
-const pageAdd = (page)=>{
-    $(page).appendTo($body)
-    $(page).addClass(`hidden`)
-    setTimeout(()=>{
-        $(page).addClass(`show`)
-    },500)
-}
+// const pageAdd = (page)=>{
+//     $(page).appendTo($body)
+//     $(page).addClass(`hidden`)
+//     setTimeout(()=>{
+//         $(page).addClass(`show`)
+//     },500)
+// }
 
-$(`.home`).on(`click`, ()=>{
-    console.log(`hi`)
-})
 
-$(`.button1`).on(`click`, ()=>{
-    console.log(`hi`)
-})
+// Get list of Heroes on Page 1
 
 const heroesGet = async()=>{
     const apiGet = await axios.get(`https://overfast-api.tekrop.fr/heroes`)
     console.log(apiGet)
     return apiGet
 }
+
+// Get list of heroes on page 2
 
 const heroGet = async(hero)=>{
     const apiGet = await axios.get(`https://overfast-api.tekrop.fr/heroes/${hero}`)
@@ -101,6 +73,9 @@ function extractVideoIdFromLink(link) {
     const match = link.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^?&]+)/);
     return match ? match[1] : '';
   }
+
+
+// Hero Page 2
 
 const infoSetHero = async(key)=>{
     const getApi = await heroGet(key)
@@ -136,8 +111,18 @@ const infoSetHero = async(key)=>{
 
     const $summary = $(`.summary`)
     $summary.html(getApi.story.summary)
+
+    let found = false
+    for (let i of noVideo){
+        console.log(i)
+        console.log(key)
+        if (i==key){
+            found = true
+            break
+        }
+    }
     
-    if (getApi.story.media != null){
+    if (found == false){
         const link = getApi.story.media.link
         console.log(link)
         console.log(link.substring(17))
@@ -166,35 +151,6 @@ const infoSetHero = async(key)=>{
             });
           };
     }
-    // const link = getApi.story.media.link
-    // console.log(link)
-    // console.log(link.substring(17))
-    // console.log(extractVideoIdFromLink(link))
-    // console.log(link.substring(link-11))
-    // const idVideo = extractVideoIdFromLink(link)
-
-    // const $heroVideo = $('<div />', {
-    //     id: 'player'
-    //   }).appendTo('#story-div');
-      
-    //   // Load the YouTube IFrame API
-    //   const tag = document.createElement('script');
-    //   tag.src = 'https://www.youtube.com/iframe_api';
-    //   const firstScriptTag = document.getElementsByTagName('script')[0];
-    //   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-      
-    //   // Function called when YouTube API is ready
-    //   window.onYouTubeIframeAPIReady = function() {
-    //     new YT.Player('player', {
-    //       videoId: idVideo, // Extract the video ID from the YouTube link
-    //       playerVars: {
-    //         autoplay: 1,
-    //         controls: 1,
-    //         loop: 1,
-    //         playlist: idVideo // Repeat the same video
-    //       }
-    //     });
-    //   };
 
     for (let j of getApi.story.chapters){
         const $chapterContainer = $(`<div class="chapter-container">`)
@@ -230,6 +186,47 @@ const imgAdd = async(link, key, className) =>{
     })
 }
 
+const heroPageClear = ()=>{
+    setTimeout(()=>{
+        $($heroPage).removeClass(`show`)
+    },500)
+    divsArray.forEach((div)=>{
+        $(div).addClass(`show`)
+        setTimeout(()=>{
+            $body.append($header)
+            $body.append($(div))
+        },500)
+    })
+}
+
+  
+
+const pageClear = ()=>{
+    $header.addClass(`hidden`)
+    divsArray.forEach((div)=>{
+        $(div).removeClass(`show`)
+        setTimeout(()=>{
+            $(div).remove()
+            $header.remove()
+        },500)
+    })
+}
+
+const contentClear = ()=>{
+    $(`.section-spread`).addClass(`hidden`)
+    setTimeout(()=>{
+        $(`.section-spread`).remove()
+    },500)
+}
+
+const pageAdd = (page)=>{
+    $(page).appendTo($body)
+    $(page).addClass(`hidden`)
+    setTimeout(()=>{
+        $(page).addClass(`show`)
+    },500)
+}
+
 // event listeners
 
 for (let i of $heroImg){ 
@@ -239,11 +236,12 @@ for (let i of $heroImg){
         const heroesApi = await heroesGet()
         const heroesData = heroesApi.data
         console.log(heroesData)
-        const $backButtonHome = $(`<button class="button-home">`)
-        $backButtonHome.html(`Back`)
-        $sectionTitleDiv.append($backButtonHome)
-        $backButtonHome.on(`click`, ()=>{
+        const $backButton = $(`<button>`)
+        $backButton.html(`Back`)
+        $heroPage.append($backButton)
+        $backButton.on(`click`, ()=>{
             console.log(`hi`)
+            heroPageClear()
         })
         if ($(i).attr(`id`) == `rein`){
             $(`#hero-section-title`).html(`Tank`)
@@ -279,3 +277,18 @@ for (let i of $mapImg){
     })
 }
 
+// animation section
+
+const observer = new IntersectionObserver((i)=>{
+    i.forEach((j) =>{
+        if (j.isIntersecting){
+            j.target.classList.add(`show`)
+        } else {
+            j.target.classList.remove(`show`)
+        }
+    })
+})
+
+
+const hiddenElements = document.querySelectorAll(`.hidden`)
+hiddenElements.forEach((i)=> observer.observe(i))
