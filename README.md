@@ -1,7 +1,47 @@
 # Overwatch Wiki
 
-A detailed Overwatch 2 Wiki with extensive details for every hero, map, and gamemode pulled from https://github.com/TeKrop/overfast-api.
+## Description
+
+This is a simple web application that provides information about the game Overwatch, including heroes, game modes, and maps.
+
+## Installation
+
+To run the application locally, follow these steps:
+
+1. Clone the repository:
+
+   ```shell
+   git clone https://github.com/your-username/overwatch.git
+
+2. Navigate to the project directory:
+    ```shell
+    cd overwatch
 
 
-## Links
-[Figma Wireframe](https://www.figma.com/file/ogRUzQmcRx2T2TAEPMAcZh/Overwatch-2-API-Main-Page?type=design&node-id=1%3A2&t=A5Y7oy8vGe5FzXFf-1)
+3. Open the `index.html` file in your preferred web browser.
+
+## Usage
+
+The application allows users to explore different sections related to Overwatch:
+
+- **Heroes**: Provides information about different hero roles and their descriptions.
+- **Game Modes**: Describes various game modes available in Overwatch.
+- **Maps**: Displays different maps and their locations.
+
+Users can navigate through these sections using the provided navigation elements.
+
+## Technologies Used
+
+- HTML
+- CSS
+- JavaScript
+- jQuery
+- Axios
+
+## Contributing
+
+Contributions are welcome! If you have any suggestions or find any issues, please create a new issue or submit a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.

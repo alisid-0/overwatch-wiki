@@ -15,126 +15,129 @@
 </head>
 
 <body>
-    <header>
+    <!-- <header>
         <img src="OWLOGO.png" alt="">
-    </header>
+    </header> -->
 
     <main>
-
-        <!-- div containing hero roles selection -->
-
-        <div class="hidden" id="hero-div">
-            <h1 class="section-tile" id="heroes-section-title">Heroes</h1>
-            <div id="role-div">
-                <div class="role-block hidden" id="role-tank">
-                    <h3 class="role-title">Tank</h3>
-                    <img class="hero-img" id="rein" src="images/rein.jpg" alt="">
-                    <h4 class="role-desc">Tank heroes soak up damage and shatter fortified positions, like closely grouped enemies and narrow chokepoints. If you’re a tank, you lead the charge.</h4>
-                </div>
-                <div class="role-block hidden" id="role-damage">
-                    <h3 class="role-title">Damage</h3>
-                    <img class="hero-img" id="genji" src="images/genji.jpg" alt="">
-                    <h4 class="role-desc">Damage heroes seek out, engage, and obliterate the enemy with wide-ranging tools, abilities, and play styles. Fearsome but fragile, these heroes require backup to survive.</h4>
-                </div>
-                <div class="role-block hidden" id="role-support">
-                    <h3 class="role-title">Support</h3>
-                    <img class="hero-img" id="mercy" src="images/mercy.jpg" alt="">
-                    <h4 class="role-desc">Support heroes empower their allies by healing, shielding, boosting damage, and disabling foes. As a support, you’re the backbone of your team’s survival.</h4>
+        <div class="background"></div>
+        <div class="home-page hidden">
+            <header>
+                <img src="OWLOGO.png" alt="">
+            </header>
+            <div class="hidden" id="hero-div">
+                <h1 class="section-tile" id="heroes-section-title">Heroes</h1>
+                <div id="role-div">
+                    <div class="role-block" id="role-tank">
+                        <h3 class="role-title">Tank</h3>
+                        <img class="hero-img" id="rein" src="images/rein.jpg" alt="">
+                        <h4 class="role-desc">Tank heroes soak up damage and shatter fortified positions, like closely grouped enemies and narrow chokepoints. If you’re a tank, you lead the charge.</h4>
+                    </div>
+                    <div class="role-block" id="role-damage">
+                        <h3 class="role-title">Damage</h3>
+                        <img class="hero-img" id="genji" src="images/genji.jpg" alt="">
+                        <h4 class="role-desc">Damage heroes seek out, engage, and obliterate the enemy with wide-ranging tools, abilities, and play styles. Fearsome but fragile, these heroes require backup to survive.</h4>
+                    </div>
+                    <div class="role-block" id="role-support">
+                        <h3 class="role-title">Support</h3>
+                        <img class="hero-img" id="mercy" src="images/mercy.jpg" alt="">
+                        <h4 class="role-desc">Support heroes empower their allies by healing, shielding, boosting damage, and disabling foes. As a support, you’re the backbone of your team’s survival.</h4>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- div containing list of 4 main gamemodes -->
-
-        <div class="hidden" id="gamemode-div">
-            <h1 id="gamemodes-section-title">Gamemodes</h1>
-            <div id="gamemodes-div">
-                <div id="gamemodes-line-1">
-                    <div class="gamemode-block hidden" id="gamemode-push">
-                        <h3 class="gamemode-title hidden">Push</h3>
-                        <img class="gamemode-img" src="https://blz-contentstack-images.akamaized.net/v3/assets/blt9c12f249ac15c7ec/blt93eefb6e91347639/62fc2d9eda42240856c1459c/Toronto_Push.jpg" alt="">
-                        <h4 class="gamemode-desc">Teams battle to take control of a robot and push it toward the enemy base.</h4>
+    
+    
+            <div id="gamemode-div">
+                <h1 id="gamemodes-section-title">Gamemodes</h1>
+                <div id="gamemodes-div">
+                    <div id="gamemodes-line-1">
+                        <div class="gamemode-block hidden" id="gamemode-push">
+                            <h3 class="gamemode-title hidden">Push</h3>
+                            <img class="gamemode-img" src="https://blz-contentstack-images.akamaized.net/v3/assets/blt9c12f249ac15c7ec/blt93eefb6e91347639/62fc2d9eda42240856c1459c/Toronto_Push.jpg" alt="">
+                            <h4 class="gamemode-desc">Teams battle to take control of a robot and push it toward the enemy base.</h4>
+                        </div>
+                        <div class="gamemode-block hidden" id="gamemode-control">
+                            <h3 class="gamemode-title">Control</h3>
+                            <img class="gamemode-img" src="https://blz-contentstack-images.akamaized.net/v3/assets/blt9c12f249ac15c7ec/blta3f8e647a52bb9e9/62fc312456388515882767ed/Oasis_Control.jpg" alt="">
+                            <h4 class="gamemode-desc">Teams fight to hold a single objective. The first team to win two rounds wins the map.</h4>
+                        </div>
                     </div>
-                    <div class="gamemode-block hidden" id="gamemode-control">
-                        <h3 class="gamemode-title">Control</h3>
-                        <img class="gamemode-img" src="https://blz-contentstack-images.akamaized.net/v3/assets/blt9c12f249ac15c7ec/blta3f8e647a52bb9e9/62fc312456388515882767ed/Oasis_Control.jpg" alt="">
-                        <h4 class="gamemode-desc">Teams fight to hold a single objective. The first team to win two rounds wins the map.</h4>
+                    <div id="gamemodes-line-2">
+                        <div class="gamemode-block-2 hidden" id="gamemode-escort">
+                            <h3 class="gamemode-title">Escort</h3>
+                            <img class="gamemode-img" src="https://blz-contentstack-images.akamaized.net/v3/assets/blt9c12f249ac15c7ec/blt7d04bb6ad434cafa/62fc332a7ea1d970140fa139/Monte_Carlo_Escort.jpg" alt="">
+                            <h4 class="gamemode-desc">One team escorts a payload to its delivery point, while the other races to stop them.</h4>
+                        </div>
+                        <div class="gamemode-block-2 hidden" id="gamemode-hybrid">
+                            <h3 class="gamemode-title hidden">Hybrid</h3>
+                            <img class="gamemode-img" src="https://blz-contentstack-images.akamaized.net/v3/assets/blt9c12f249ac15c7ec/blt253b3f05c32db72b/62fc2d9e947fcf14cd224b18/Rio_de_Janeiro_Hybrid.jpg" alt="">
+                            <h4 class="gamemode-desc">Attackers capture a payload, then escort it to its destination; defenders try to hold them back.</h4>
+                        </div>
                     </div>
-                </div>
-                <div id="gamemodes-line-2">
-                    <div class="gamemode-block-2 hidden" id="gamemode-escort">
-                        <h3 class="gamemode-title">Escort</h3>
-                        <img class="gamemode-img" src="https://blz-contentstack-images.akamaized.net/v3/assets/blt9c12f249ac15c7ec/blt7d04bb6ad434cafa/62fc332a7ea1d970140fa139/Monte_Carlo_Escort.jpg" alt="">
-                        <h4 class="gamemode-desc">One team escorts a payload to its delivery point, while the other races to stop them.</h4>
-                    </div>
-                    <div class="gamemode-block-2 hidden" id="gamemode-hybrid">
-                        <h3 class="gamemode-title hidden">Hybrid</h3>
-                        <img class="gamemode-img" src="https://blz-contentstack-images.akamaized.net/v3/assets/blt9c12f249ac15c7ec/blt253b3f05c32db72b/62fc2d9e947fcf14cd224b18/Rio_de_Janeiro_Hybrid.jpg" alt="">
-                        <h4 class="gamemode-desc">Attackers capture a payload, then escort it to its destination; defenders try to hold them back.</h4>
-                    </div>
-                </div>
-                <div id="gamemodes-line-3">
-                    <button id="gamemodes-more-button">See More</button>
                 </div>
             </div>
-        </div>
-
-        <!-- div containg list of maps -->
-
-        <div class="hidden" id="map-div">
-            <h1 id="maps-section-title">Maps</h1>
-            <div id="maps-div">
-                <div id="maps-line-1">
-                    <div class="map-block hidden" id="map-hanamura">
-                        <h3 class="map-title">Hanamura</h3>
-                        <img class="map-img" src="https://overfast-api.tekrop.fr/static/maps/hanamura.jpg" alt="">
-                        <h4 class="map-desc">Tokyo, JP</h4>
+    
+    
+            <div class="hidden" id="map-div">
+                <h1 id="maps-section-title">Maps</h1>
+                <div id="maps-div">
+                    <div id="maps-line-1">
+                        <div class="map-block hidden" id="map-hanamura">
+                            <h3 class="map-title">Hanamura</h3>
+                            <img class="map-img" src="https://overfast-api.tekrop.fr/static/maps/hanamura.jpg" alt="">
+                            <h4 class="map-desc">Tokyo, JP</h4>
+                        </div>
+                        <div class="map-block hidden" id="map-ilios">
+                            <h3 class="map-title">Ilios</h3>
+                            <img class="map-img" id="slide-out-button" src="https://overfast-api.tekrop.fr/static/maps/ilios.jpg" alt="">
+                            <h4 class="map-desc">Greece</h4>
+                        </div>
                     </div>
-                    <div class="map-block hidden" id="map-ilios">
-                        <h3 class="map-title">Ilios</h3>
-                        <img class="map-img" id="slide-out-button" src="https://overfast-api.tekrop.fr/static/maps/ilios.jpg" alt="">
-                        <h4 class="map-desc">Greece</h4>
-                    </div>
-                </div>
-                <div id="maps-line-2">
-                    <div class="map-block-2 hidden" id="map-route66">
-                        <h3 class="map-title">Route 66</h3>
-                        <img class="map-img" src="https://overfast-api.tekrop.fr/static/maps/route_66.jpg" alt="">
-                        <h4 class="map-desc">New Mexico, US</h4>
-                    </div>
-                    <div class="map-block-2 hidden" id="map-lijiang">
-                        <h3 class="map-title">Lijiang Tower</h3>
-                        <img class="map-img" src="https://overfast-api.tekrop.fr/static/maps/lijiang.jpg" alt="">
-                        <h4 class="map-desc">China</h4>
+                    <div id="maps-line-2">
+                        <div class="map-block-2 hidden" id="map-route66">
+                            <h3 class="map-title">Route 66</h3>
+                            <img class="map-img" src="https://overfast-api.tekrop.fr/static/maps/route_66.jpg" alt="">
+                            <h4 class="map-desc">New Mexico, US</h4>
+                        </div>
+                        <div class="map-block-2 hidden" id="map-lijiang">
+                            <h3 class="map-title">Lijiang Tower</h3>
+                            <img class="map-img" src="https://overfast-api.tekrop.fr/static/maps/lijiang.jpg" alt="">
+                            <h4 class="map-desc">China</h4>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         
-        <div class="page hidden" id="heroes-page">
+        <div class="page hidden hide" id="heroes-page">
             <h1 class="page-title">HEROES</h1>
             <div id="section-title-div">
                 <h1 class="section-title" id="hero-section-title">Support</h1>
             </div>
-            <!-- <h1 class="section-title" id="hero-section-title">Support</h1> -->
             <div class="section-spread"></div>
         </div>
 
-        <div class="page hidden" id="gamemodes-page">
+        <div class="page hidden hide" id="gamemodes-page">
             <h1 class="page-title">GAMEMODES</h1>
             <h1 class="section-title">All</h1>
-            <div class="section-spread"></div>
+            <button class="gm-back">Back</button>
+            <div id="gamemodes-section-spread"></div>
         </div>
 
-        <div class="page hidden" id="maps-page">
+        <div class="page hidden hide" id="maps-page">
             <h1 class="page-title">MAPS</h1>
             <h1 class="section-title">All</h1>
-            <div class="section-spread"></div>
+            <button class="maps-back">Back</button>
+            <div class="section-spread" id="maps-section-spread">
+
+            </div>
         </div>
 
-        <div class="info-page hidden">
-            <!-- <h1 class="section-title">D.Va</h1> -->
+        <div class="info-page hidden hide">
+            <h1 class="page-title">HEROES</h1>
             <div class="info-spread">
+                <h1 id="hero-name"></h4>
+                <button class="info-back">Back</button>
                 <div id="pic-desc">
                     <img class="info-img" src="https://d15f34w2p8l1cc.cloudfront.net/overwatch/ca114f72193e4d58a85c087e9409242f1a31e808cf4058678b8cbf767c2a9a0a.png" alt="">
                     <div class="desc-div">
@@ -149,6 +152,64 @@
                 <div id="story-div">
                     <h4 class="summary"></h4>
                 </div>
+            </div>
+        </div>
+
+        <div class="search-page hidden hide">
+            <h1 class="page-title">Player Stats</h1>
+            <input type="text" placeholder="Enter Battle.Net ID Here">
+            <img class="player-banner" src="https://d15f34w2p8l1cc.cloudfront.net/overwatch/55d8c21e9d8b14942c26c4028059b6cd3b4e2fea40a139821ecee73a0005126f.png" alt="">
+            <div class="player-info">
+                <div class="name-img" style="display: flex;">
+                    <h2 id="username">Username: mustang </h2>
+                    <img class="player-icon" style="width: 100px;" src="https://d15f34w2p8l1cc.cloudfront.net/overwatch/33c15d3ce7b4d3b9bd03234faa7c7806d7e28bfc9a9f3fe7014b5986c9453d5c.png" alt="">
+                </div>
+                <h2 class="player-title">Title: Diamond Challenger</h2>
+                <div class="endorsement" style="display: flex;">
+                    <h2 class="endorsement-level">Endorsement Level: 1</h2>
+                    <img src="https://static.playoverwatch.com/img/pages/career/icons/endorsement/1-9de6d43ec5.svg#icon"  style="width: 100px;" alt="">
+                </div>
+            </div>
+            <div class="ranks">
+                <div class="systems">
+                    <div class="pc">
+                        <h2 class="pc-title">PC</h2>
+                        <div class="rank-roles">
+                            <div class="tank">
+                                <img class="rank-icon" class="tank-rank-icon" src="" alt="">
+                                <h2 class="tank-division"> <span class="tank-tier"></span></h2>
+                            </div>
+                            <div class="damage">
+                                <img class="rank-icon" class="damage-rank-icon" src="https://static.playoverwatch.com/img/pages/career/icons/rank/MasterTier-4-397f8722e0.png" alt="">
+                                <h2 class="damage-division">Master <span class="damage-tier">4</span></h2>
+                            </div>
+                            <div class="support">
+                                <img class="rank-icon" class="suppport-rank-icon" src="" alt="">
+                                <h2 class="support-division"> <span class="support-tier"></span></h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="console">
+                        <h2 class="console-title">Console</h2>
+                        <div class="rank-roles">
+                            <div class="tank">
+                                <img class="rank-icon" class="tank-rank-icon" src="" alt="">
+                                <h2 class="tank-division"> <span class="tank-tier"></span></h2>
+                            </div>
+                            <div class="damage">
+                                <img class="rank-icon" class="damage-rank-icon" src="" alt="">
+                                <h2 class="damage-division"><span class="damage-tier"></span></h2>
+                            </div>
+                            <div class="support">
+                                <img class="rank-icon" class="suppport-rank-icon" src="" alt="">
+                                <h2 class="support-division"> <span class="support-tier"></span></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="player-stats">
+                
             </div>
         </div>
 

@@ -11,13 +11,13 @@ const $gamemodeImg = $(`.gamemode-img`)
 const $mapImg = $(`.map-img`)
 const imgArray =[$heroImg, $gamemodeImg, $mapImg]
 const $heroPage = $(`#heroes-page`)
-$heroPage.remove()
+// $heroPage.remove()
 const $gamemodesPage = $(`#gamemodes-page`)
-$gamemodesPage.remove()
+// $gamemodesPage.remove()
 const $mapsPage = $(`#maps-page`)
-$mapsPage.remove()
+// $mapsPage.remove()
 const $infoPage = $(`.info-page`)
-$infoPage.remove()
+// $infoPage.remove()
 const $sectionTitle = $(`.section-title`)
 const $sectionTitleDiv = $(`#section-title-div`)
 const $infoSpread = $(`.info-spread`)
@@ -25,33 +25,6 @@ const noVideo = [`zarya`, `pharah`, `reaper`, `symmetra`, `torbjorn`, `tracer`, 
 
 
 // functions
-
-// const pageClear = ()=>{
-//     $header.addClass(`hidden`)
-//     divsArray.forEach((div)=>{
-//         $(div).removeClass(`show`)
-//         setTimeout(()=>{
-//             $(div).remove()
-//             $header.remove()
-//         },500)
-//     })
-// }
-
-// const contentClear = ()=>{
-//     $(`.section-spread`).addClass(`hidden`)
-//     setTimeout(()=>{
-//         $(`.section-spread`).remove()
-//     },500)
-// }
-
-// const pageAdd = (page)=>{
-//     $(page).appendTo($body)
-//     $(page).addClass(`hidden`)
-//     setTimeout(()=>{
-//         $(page).addClass(`show`)
-//     },500)
-// }
-
 
 // Get list of Heroes on Page 1
 
@@ -69,180 +42,108 @@ const heroGet = async(hero)=>{
     return apiGet.data
 }
 
+const getMaps = async()=>{
+    const apiGet = await axios.get(`https://overfast-api.tekrop.fr/maps`)
+    apiData = apiGet.data
+    return apiData
+}
+
+const getGamemodes = async()=>{
+    const apiGet = await axios.get(`https://overfast-api.tekrop.fr/gamemodes`)
+    apiData = apiGet.data
+    return apiData
+}
+
 function extractVideoIdFromLink(link) {
     const match = link.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^?&]+)/);
     return match ? match[1] : '';
-  }
-
-
-// Hero Page 2
-
-const infoSetHero = async(key)=>{
-    const getApi = await heroGet(key)
-    const $abilityDiv = $(`#ability-div`)
-    const $storyDiv = $(`#story-div`)
-    for (let i of getApi.abilities){
-        console.log(i.name)
-        const $abilityContainer = $(`<div>`)
-        const $abilityName = $(`<h4 class="ability-name">`)
-        const $abilityImg = $(`<img>`)
-        const $abilityDesc = $(`<h4>`)
-
-        const $abilityVideo = $('<video />', {
-            id: 'video',
-            src: i.video.link.mp4,
-            type: 'video/mp4',
-            controls: false,
-            loop: true,
-            autoplay: true,
-        })
-
-        $abilityContainer.attr(`class`, `ability-container`)
-        $abilityName.html(i.name)
-        $abilityImg.attr(`src`, i.icon)
-        $abilityDesc.addClass(`ability-desc`)
-        $abilityDesc.html(i.description)
-        $abilityContainer.append($abilityName)
-        $abilityContainer.append($abilityImg)
-        $abilityContainer.append($abilityDesc)
-        $abilityContainer.append($abilityVideo)
-        $abilityDiv.append($abilityContainer)
-    }
-
-    const $summary = $(`.summary`)
-    $summary.html(getApi.story.summary)
-
-    let found = false
-    for (let i of noVideo){
-        console.log(i)
-        console.log(key)
-        if (i==key){
-            found = true
-            break
-        }
-    }
-    
-    if (found == false){
-        const link = getApi.story.media.link
-        console.log(link)
-        console.log(link.substring(17))
-        console.log(extractVideoIdFromLink(link))
-        console.log(link.substring(link-11))
-        const idVideo = extractVideoIdFromLink(link)
-    
-        const $heroVideo = $('<div />', {
-            id: 'player'
-          }).appendTo('#story-div');
-          
-          const tag = document.createElement('script');
-          tag.src = 'https://www.youtube.com/iframe_api';
-          const firstScriptTag = document.getElementsByTagName('script')[0];
-          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-          
-          window.onYouTubeIframeAPIReady = function() {
-            new YT.Player('player', {
-              videoId: idVideo, 
-              playerVars: {
-                autoplay: 1,
-                controls: 1,
-                loop: 1,
-                playlist: idVideo 
-              }
-            });
-          };
-    }
-
-    for (let j of getApi.story.chapters){
-        const $chapterContainer = $(`<div class="chapter-container">`)
-        const $chapterTitle = $(`<h3 class="chapter-title">`)
-        const $chapterImg = $(`<img class="chapter-img">`)
-        const $chapterDesc = $(`<h4 class="chapter-desc">`)
-        $chapterTitle.html(j.title)
-        $chapterImg.attr(`src`, j.picture)
-        $chapterDesc.html(j.content)
-        $chapterContainer.append($chapterTitle)
-        $chapterContainer.append($chapterImg)
-        $chapterContainer.append($chapterDesc)
-        $storyDiv.append($chapterContainer)
-    }
 }
 
 const imgAdd = async(link, key, className) =>{
     const $img = $(`<img>`)  
     $img.attr(`src`, `${link}`)
     $img.attr(`class`, `section-img`)
-    $(`.section-spread`).append($img)
-    $img.on(`click`, async()=>{
+    $img.on('click', async()=>{
+        console.log(`hi`)
         const heroInfo = await heroGet(key)
-        pageAdd($infoPage)
+        // $heroPage.addClass(`hide`)
+        pageHide($heroPage)
+        $(`info-page`).addClass(`hide`)
         infoSetHero(key)
-        $(`.section-title`).html(heroInfo.name)
         $(`.info-img`).attr(`src`,heroInfo.portrait)
         $(`.info-img`).attr(`class`, `info-img ${className}`)
         $(`#desc`).html(`Description: ${heroInfo.description}`)
         $(`#location`).html(`Location: ${heroInfo.location}`)
         $(`#role`).html(`Role: ${heroInfo.role}`)
-        contentClear()
+        $infoPage.removeClass(`hide`)
+        
     })
+    $(`.section-spread`).append($img)
 }
 
-const heroPageClear = ()=>{
+
+const pageHide = (page)=>{
+    $(page).removeClass(`show`)
     setTimeout(()=>{
-        $($heroPage).removeClass(`show`)
+        $(page).addClass(`hide`)
     },500)
-    divsArray.forEach((div)=>{
-        $(div).addClass(`show`)
-        setTimeout(()=>{
-            $body.append($header)
-            $body.append($(div))
-        },500)
+    
+}
+
+
+const $backButton = $(`<button>`)
+$backButton.html(`Back`)
+$(`#section-title-div`).append($backButton)
+
+$backButton.on(`click`, ()=>{
+    pageHide($(`#heroes-page`))
+    setTimeout(()=>{
+        $(`.section-img`).remove()
+        $header.removeClass(`hide`)
+        $header.addClass(`show`)
+        $(`.home-page`).removeClass(`hide`)
+    },500)
+    
+    
+})
+
+const $infoBack = $(`.info-back`)
+
+$infoBack.on(`click`,()=>{
+    pageHide($infoPage)
+    setTimeout(()=>{
+        $heroPage.removeClass(`hide`)
+        $(`.ability-container`).remove()
+        $(`.chapter-container`).remove()
     })
-}
+    $(`#player`).remove()
+})
 
-  
+const $mapBack = $(`.maps-back`)
 
-const pageClear = ()=>{
-    $header.addClass(`hidden`)
-    divsArray.forEach((div)=>{
-        $(div).removeClass(`show`)
-        setTimeout(()=>{
-            $(div).remove()
-            $header.remove()
-        },500)
-    })
-}
-
-const contentClear = ()=>{
-    $(`.section-spread`).addClass(`hidden`)
+$mapBack.on(`click`, ()=>{
+    pageHide($mapsPage)
     setTimeout(()=>{
-        $(`.section-spread`).remove()
+        $header.removeClass(`hide`)
+        $header.addClass(`show`)
+        $(`.home-page`).removeClass(`hide`)
     },500)
-}
+})
 
-const pageAdd = (page)=>{
-    $(page).appendTo($body)
-    $(page).addClass(`hidden`)
-    setTimeout(()=>{
-        $(page).addClass(`show`)
-    },500)
-}
 
-// event listeners
+
+
 
 for (let i of $heroImg){ 
     $(i).on(`click`, async()=>{
-        pageClear()
-        pageAdd($heroPage)
+        setTimeout(()=>{
+            pageHide(`.home-page`)
+            $header.addClass(`hidden`)
+            pageHide(`header`)
+        },0)
+        $heroPage.removeClass(`hide`)
         const heroesApi = await heroesGet()
         const heroesData = heroesApi.data
-        console.log(heroesData)
-        const $backButton = $(`<button>`)
-        $backButton.html(`Back`)
-        $heroPage.append($backButton)
-        $backButton.on(`click`, ()=>{
-            console.log(`hi`)
-            heroPageClear()
-        })
         if ($(i).attr(`id`) == `rein`){
             $(`#hero-section-title`).html(`Tank`)
             for (let j of heroesData){
@@ -263,17 +164,154 @@ for (let i of $heroImg){
     })
 }
 
+
+const infoSetHero = async(key)=>{
+    const getApi = await heroGet(key)
+    const $abilityDiv = $(`#ability-div`)
+    const $storyDiv = $(`#story-div`)
+    $(`#hero-name`).html(getApi.name)
+    for (let i of getApi.abilities){
+        console.log(i.name)
+        const $abilityContainer = $(`<div>`)
+        const $abilityName = $(`<h4 class="ability-name">`)
+        const $abilityImg = $(`<img>`)
+        const $abilityDesc = $(`<h4>`)
+
+        const $abilityVideo = $('<video />', {
+            id: 'video',
+            src: i.video.link.mp4,
+            type: 'video/mp4',
+            controls: false,
+            loop: true,
+            autoplay: true,
+        })
+        
+
+        $abilityContainer.attr(`class`, `ability-container`)
+        $abilityName.html(i.name)
+        $abilityImg.attr(`src`, i.icon)
+        $abilityDesc.addClass(`ability-desc`)
+        $abilityDesc.html(i.description)
+        $abilityContainer.append($abilityName)
+        $abilityContainer.append($abilityImg)
+        $abilityContainer.append($abilityDesc)
+        $abilityContainer.append($abilityVideo)
+        $abilityDiv.append($abilityContainer)
+    }
+
+    const $summary = $(`.summary`)
+    $summary.html(getApi.story.summary)
+
+    let found = false
+    for (let i of noVideo){
+        if (i==key){
+            found = true
+            break
+        }
+    }
+    
+    if (found == false){
+        const link = getApi.story.media.link
+        console.log(link)
+        console.log(link.substring(17))
+        console.log(extractVideoIdFromLink(link))
+        console.log(link.substring(link-11))
+        const idVideo = extractVideoIdFromLink(link)
+        
+        const $heroVideo = $('<div />', {
+            id: 'player'
+          }).appendTo('#story-div');
+          
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+          
+        if (typeof YT !== 'undefined' && YT.loaded) {
+            createYouTubePlayer(idVideo);
+          } else {
+            window.onYouTubeIframeAPIReady = () => {
+              createYouTubePlayer(idVideo);
+            };
+          } 
+    }
+
+    function createYouTubePlayer(videoId) {
+        new YT.Player('player', {
+          videoId: videoId,
+          playerVars: {
+            autoplay: 1,
+            controls: 1,
+            loop: 1,
+            playlist: videoId,
+          },
+        });
+      }
+
+    for (let j of getApi.story.chapters){
+        const $chapterContainer = $(`<div class="chapter-container">`)
+        const $chapterTitle = $(`<h3 class="chapter-title">`)
+        const $chapterImg = $(`<img class="chapter-img">`)
+        const $chapterDesc = $(`<h4 class="chapter-desc">`)
+        const words = j.title.split(' ') 
+        const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1)) 
+        const capitalizedTitle = capitalizedWords.join(' ')
+        $chapterTitle.html(capitalizedTitle)
+        $chapterImg.attr(`src`, j.picture)
+        $chapterDesc.html(j.content)
+        $chapterContainer.append($chapterTitle)
+        $chapterContainer.append($chapterImg)
+        $chapterContainer.append($chapterDesc)
+        $storyDiv.append($chapterContainer)
+    }
+}
+
+
+
 for (let i of $gamemodeImg){
-    $(i).on(`click`, ()=>{
-    pageClear()
-    pageAdd($gamemodesPage)
+    $(i).on(`click`, async()=>{
+        pageHide(`.home-page`)
+        $gamemodesPage.removeClass(`hide`)
+        const gamemodesList = await getGamemodes()
+        console.log(gamemodesList)
+        for (let i of gamemodesList){
+            const $gmDiv = $(`<div>`)
+            const $img = $(`<img>`)
+            const $gmName = $(`<h4 class="gm-name">`)
+            const $gmDesc = $(`<h4 class="gm-desc">`)
+            $gmName.html(i.name)
+            $gmDesc.html(i.description)
+            $gmDiv.attr(`class`, `gm-div`)
+            $img.attr(`src`,i.screenshot)
+            $img.attr(`class`, `gm-img`)
+            $gmName.appendTo($gmDiv)
+            $img.appendTo($gmDiv)
+            $gmDesc.appendTo($gmDiv)
+            $gmDiv.appendTo(`#gamemodes-section-spread`)
+        }
+
     })
 }
 
 for (let i of $mapImg){
-    $(i).on(`click`, ()=>{
-    pageClear()
-    pageAdd($mapsPage)
+    $(i).on(`click`, async()=>{
+        pageHide(`.home-page`)
+        $mapsPage.removeClass(`hide`)
+        const mapList = await getMaps()
+        console.log(mapList)
+        for(let i of mapList){
+            const $mapInfoDiv = $(`<div class="map-info-div">`)
+            const $img = $(`<img>`)
+            const $mapTitle = $(`<h4 class="map-title">`)
+            const $mapLoc = $(`<h4 class="map-location">`)
+            $mapTitle.html(i.name)
+            $img.attr(`src`,i.screenshot)
+            $mapLoc.html(i.location)
+            $mapTitle.appendTo($mapInfoDiv)
+            $img.appendTo($mapInfoDiv)
+            $mapLoc.appendTo($mapInfoDiv)
+            $mapInfoDiv.appendTo(`#maps-section-spread`)
+        }
     })
 }
 
@@ -292,3 +330,20 @@ const observer = new IntersectionObserver((i)=>{
 
 const hiddenElements = document.querySelectorAll(`.hidden`)
 hiddenElements.forEach((i)=> observer.observe(i))
+
+
+$(document).ready(function() {
+    $(window).scroll(function() {
+      var scroll = $(window).scrollTop();
+      var opacity = 1 - scroll / 8000 
+  
+      $(".background").css("opacity", opacity)
+  
+      if (scroll > 0) {
+        $(".background").addClass("dark")
+      } else {
+        $(".background").removeClass("dark")
+      }
+    })
+  })
+  
