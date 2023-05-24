@@ -171,6 +171,8 @@ h4{
     margin-left: 0%;
 }
 
+
+
 #gamemodes-div img{
     min-width: 100%;
     padding: 1px;
@@ -228,6 +230,10 @@ h4{
     padding: 1px;
     border-radius: 60px;
     max-width:max-content;
+}
+
+#maps-div img:hover{
+    padding:0px;
 }
 
 #maps-line-1{
@@ -449,7 +455,39 @@ iframe{
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+    margin-top: 20px;
+    gap: 150px;
 }
+
+.map-info-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 400px;
+}
+
+.map-info-div h4{
+    background-color: #d9d9d930;
+    border-radius: 60px;
+    padding: 10px;
+}
+
+.map-info-div img{
+    max-width: max-content;
+    padding: 1px;
+    margin: 0px;
+    width: 100%;
+}
+.map-info-div img:hover{
+    border: none;
+}
+
+
+.map-title{
+    font-size: 30px;
+}
+
 
 #gamemodes-section-spread{
     display: flex;
@@ -496,6 +534,10 @@ button{
     border-radius: 5px;
     color: orange;
     text-shadow: none;
+}
+
+.rank-icon{
+    width:100px;
 }
 
 /* animations */

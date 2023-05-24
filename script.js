@@ -119,6 +119,17 @@ $infoBack.on(`click`,()=>{
     $(`#player`).remove()
 })
 
+const $mapBack = $(`.maps-back`)
+
+$mapBack.on(`click`, ()=>{
+    pageHide($mapsPage)
+    setTimeout(()=>{
+        $header.removeClass(`hide`)
+        $header.addClass(`show`)
+        $(`.home-page`).removeClass(`hide`)
+    },500)
+})
+
 
 
 
@@ -242,7 +253,10 @@ const infoSetHero = async(key)=>{
         const $chapterTitle = $(`<h3 class="chapter-title">`)
         const $chapterImg = $(`<img class="chapter-img">`)
         const $chapterDesc = $(`<h4 class="chapter-desc">`)
-        $chapterTitle.html(j.title)
+        const words = j.title.split(' ') 
+        const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1)) 
+        const capitalizedTitle = capitalizedWords.join(' ')
+        $chapterTitle.html(capitalizedTitle)
         $chapterImg.attr(`src`, j.picture)
         $chapterDesc.html(j.content)
         $chapterContainer.append($chapterTitle)
@@ -286,9 +300,17 @@ for (let i of $mapImg){
         const mapList = await getMaps()
         console.log(mapList)
         for(let i of mapList){
+            const $mapInfoDiv = $(`<div class="map-info-div">`)
             const $img = $(`<img>`)
+            const $mapTitle = $(`<h4 class="map-title">`)
+            const $mapLoc = $(`<h4 class="map-location">`)
+            $mapTitle.html(i.name)
             $img.attr(`src`,i.screenshot)
-            $img.appendTo(`#maps-section-spread`)
+            $mapLoc.html(i.location)
+            $mapTitle.appendTo($mapInfoDiv)
+            $img.appendTo($mapInfoDiv)
+            $mapLoc.appendTo($mapInfoDiv)
+            $mapInfoDiv.appendTo(`#maps-section-spread`)
         }
     })
 }
