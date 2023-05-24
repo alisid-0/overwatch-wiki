@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+  }
+
 
 body{
     font-family: 'Bank Sans EF CY Lig', serif;
