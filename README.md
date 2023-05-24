@@ -8,14 +8,14 @@ This is a simple web application that provides information about the game Overwa
 
 To run the application locally, follow these steps:
 
-1. Clone the repository:
+1. Fork and clone the repository:
 
    ```shell
-   git clone https://github.com/your-username/overwatch.git
+   git clone https://github.com/your-username/overwatch-wiki.git
 
 2. Navigate to the project directory:
     ```shell
-    cd overwatch
+    cd overwatch-wiki
 
 
 3. Open the `index.html` file in your preferred web browser.
