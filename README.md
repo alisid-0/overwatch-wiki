@@ -6,9 +6,9 @@ This is a simple web application that provides information about the game Overwa
 
 ## Links
 
-[Trello][https://trello.com/invite/b/z96St1K2/ATTId7a6a4321bc74a9965e26da2f8435b8519D0D1ED/overwatch-api]
-[Figma][https://www.figma.com/file/ogRUzQmcRx2T2TAEPMAcZh/Overwatch-2-API-Main-Page?type=design&node-id=1%3A2&t=hVx0zrpyB0DRqiW5-1]
-[Figma Design 2][https://www.figma.com/file/qB23h3Ov0ZPmN2g3YYRRTH/Untitled?type=design&node-id=1%3A4&t=LHmTVrrxw6OD0Z5c-1]
+[Trello](https://trello.com/invite/b/z96St1K2/ATTId7a6a4321bc74a9965e26da2f8435b8519D0D1ED/overwatch-api)
+[Figma](https://www.figma.com/file/ogRUzQmcRx2T2TAEPMAcZh/Overwatch-2-API-Main-Page?type=design&node-id=1%3A2&t=hVx0zrpyB0DRqiW5-1)
+[Figma Design 2](https://www.figma.com/file/qB23h3Ov0ZPmN2g3YYRRTH/Untitled?type=design&node-id=1%3A4&t=LHmTVrrxw6OD0Z5c-1)
 
 ## Installation
 
