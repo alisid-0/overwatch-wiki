@@ -4,6 +4,12 @@
 
 This is a simple web application that provides information about the game Overwatch, including heroes, game modes, and maps.
 
+## Links
+
+[Trello][https://trello.com/invite/b/z96St1K2/ATTId7a6a4321bc74a9965e26da2f8435b8519D0D1ED/overwatch-api]
+[Figma][https://www.figma.com/file/ogRUzQmcRx2T2TAEPMAcZh/Overwatch-2-API-Main-Page?type=design&node-id=1%3A2&t=hVx0zrpyB0DRqiW5-1]
+[Figma Design 2][https://www.figma.com/file/qB23h3Ov0ZPmN2g3YYRRTH/Untitled?type=design&node-id=1%3A4&t=LHmTVrrxw6OD0Z5c-1]
+
 ## Installation
 
 To run the application locally, follow these steps:
@@ -18,14 +24,14 @@ To run the application locally, follow these steps:
     cd overwatch-wiki
 
 
-3. Open the `index.html` file in your preferred web browser.
+3. Open the `index.html` using VSCode's Live Server extension.
 
 ## Usage
 
-The application allows users to explore different sections related to Overwatch:
+The site allows users to explore different sections related to Overwatch:
 
 - **Heroes**: Provides information about different hero roles and their descriptions.
-- **Game Modes**: Describes various game modes available in Overwatch.
+- **Game Modes**: Showcases the various game modes available in Overwatch.
 - **Maps**: Displays different maps and their locations.
 
 Users can navigate through these sections using the provided navigation elements.
@@ -38,10 +44,5 @@ Users can navigate through these sections using the provided navigation elements
 - jQuery
 - Axios
 
-## Contributing
 
-Contributions are welcome! If you have any suggestions or find any issues, please create a new issue or submit a pull request.
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
