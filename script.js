@@ -346,6 +346,8 @@ const infoSetHero = async(key)=>{
         const $chapterTitle = $(`<h3 class="chapter-title">`)
         const $chapterImg = $(`<img class="chapter-img">`)
         const $chapterDesc = $(`<h4 class="chapter-desc">`)
+        const $chapterImgDesc = $(`<div class="chapter-img-desc">`)
+        $('.chapter-img-desc:nth-child(even)').addClass('reverse')
         const words = j.title.split(' ') 
         const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1)) 
         const capitalizedTitle = capitalizedWords.join(' ')
@@ -353,8 +355,11 @@ const infoSetHero = async(key)=>{
         $chapterImg.attr(`src`, j.picture)
         $chapterDesc.html(j.content)
         $chapterContainer.append($chapterTitle)
-        $chapterContainer.append($chapterImg)
-        $chapterContainer.append($chapterDesc)
+        $chapterImgDesc.append($chapterImg)
+        $chapterImgDesc.append($chapterDesc)
+        // $chapterContainer.append($chapterImg)
+        // $chapterContainer.append($chapterDesc)
+        $chapterContainer.append($chapterImgDesc)
         $storyDiv.append($chapterContainer)
     }
 }
