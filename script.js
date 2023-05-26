@@ -11,13 +11,9 @@ const $gamemodeImg = $(`.gamemode-img`)
 const $mapImg = $(`.map-img`)
 const imgArray =[$heroImg, $gamemodeImg, $mapImg]
 const $heroPage = $(`#heroes-page`)
-// $heroPage.remove()
 const $gamemodesPage = $(`#gamemodes-page`)
-// $gamemodesPage.remove()
 const $mapsPage = $(`#maps-page`)
-// $mapsPage.remove()
 const $infoPage = $(`.info-page`)
-// $infoPage.remove()
 const $sectionTitle = $(`.section-title`)
 const $sectionTitleDiv = $(`#section-title-div`)
 const $infoSpread = $(`.info-spread`)
@@ -42,11 +38,15 @@ const heroGet = async(hero)=>{
     return apiGet.data
 }
 
+// Get list of maps 
+
 const getMaps = async()=>{
     const apiGet = await axios.get(`https://overfast-api.tekrop.fr/maps`)
     apiData = apiGet.data
     return apiData
 }
+
+// Get list of gamemodes
 
 const getGamemodes = async()=>{
     const apiGet = await axios.get(`https://overfast-api.tekrop.fr/gamemodes`)
@@ -54,10 +54,101 @@ const getGamemodes = async()=>{
     return apiData
 }
 
+
+// Stats Page
+
+const playerGet = async(playerName)=>{
+    const apiGet = await axios.get(`https://overfast-api.tekrop.fr/players/${playerName}`)
+    apiData = apiGet.data
+    console.log(apiData)
+    return apiData 
+}
+
+const $searchButton = $(`#player-search-button`)
+
+$searchButton.on(`click`, async()=>{
+    
+    $(`.rank-roles`) ? $(`.rank-roles`).empty() : null
+    $(`#endorsement-img`) ? $(`#endorsement-img`).remove() : null
+    $(`.pc-div`) ? $(`.pc-div`).remove() : null
+    let $input = $(`input`)
+    let inputVal = $input.val()
+    let replacedVal = inputVal.replace("#", "-")
+    const playerInfo = await playerGet(replacedVal)
+    $(`.player-banner`).attr(`src`, playerInfo.summary.namecard)
+    $(`#username`).html(`Username: ${playerInfo.summary.username}`)
+    $(`.player-icon`).attr(`src`, playerInfo.summary.avatar)
+    $(`.player-title`).html(`Title: ${playerInfo.summary.title}`)
+    $(`.endorsement-level`).html(`Endorsement Level: `)
+
+    const $endorsementImg = $(`<img id="endorsement-img">`)
+    $endorsementImg.attr(`src`, playerInfo.summary.endorsement.frame)
+    $(`.endorsement`).append($endorsementImg)
+    const pc = playerInfo.summary.competitive.pc
+
+    if(playerInfo.summary.competitive.pc != null){
+        const $systemDiv = $(`<div class="pc-div">`)
+        const $pcTitle = $(`<h2 class="pc-title">`)
+        $pcTitle.html(`PC`)
+        const $rankRoles = $(`<div class="rank-roles">`)
+        const $tankRoleDiv = $(`<div class="tank role-rank-div">`)
+        const $tankRoleTitle = $(`<h2 class="role-title">Tank</h2>`)
+        $tankRoleDiv.append($tankRoleTitle)
+        $rankRoles.append($tankRoleDiv)
+        
+        const $damageRoleDiv = $(`<div class="damage role-rank-div">`)
+        const $damageRoleTitle = $(`<h2 class="role-title">Damage</h2>`)
+        $damageRoleDiv.append($damageRoleTitle)
+        $rankRoles.append($damageRoleDiv)
+
+        const $supportRoleDiv = $(`<div class="support role-rank-div">`)
+        const $supportRoleTitle = $(`<h2 class="role-title">Support</h2>`)
+        $supportRoleDiv.append($supportRoleTitle)
+        $rankRoles.append($supportRoleDiv)
+        
+        if (playerInfo.summary.competitive.pc.tank){
+            const $rankImg = $(`<img>`)
+            $rankImg.attr(`src`, playerInfo.summary.competitive.pc.tank.rank_icon)
+            $tankRoleDiv.append($rankImg)
+            const $rank = $(`<h2 class="rank">`)
+            $rank.html(`${playerInfo.summary.competitive.pc.tank.division} ${playerInfo.summary.competitive.pc.tank.tier}`)
+            $tankRoleDiv.append($rank)
+        
+        }
+        if (playerInfo.summary.competitive.pc.damage){
+            const $rankImg = $(`<img>`)
+            $rankImg.attr(`src`,playerInfo.summary.competitive.pc.damage.rank_icon)
+            $damageRoleDiv.append($rankImg)
+            const $rank = $(`<h2 class="rank">`)
+            $rank.html(`${playerInfo.summary.competitive.pc.damage.division} ${playerInfo.summary.competitive.pc.damage.tier}`)
+            $damageRoleDiv.append($rank)
+        }
+
+        if (playerInfo.summary.competitive.pc.support){
+            const $rankImg = $(`<img>`)
+            $rankImg.attr(`src`, playerInfo.summary.competitive.pc.support.rank_icon)
+            $supportRoleDiv.append($rankImg)
+            const $rank = $(`<h2 class="rank">`)
+            $rank.html(`${playerInfo.summary.competitive.pc.support.division} ${playerInfo.summary.competitive.pc.support.tier}`)
+            $supportRoleDiv.append($rank)
+        }
+
+        $systemDiv.append($pcTitle)
+        $systemDiv.append($rankRoles)
+        $(`.systems`).append($systemDiv)
+    }
+    
+      
+})
+
+// Youtube Link Function
+
 function extractVideoIdFromLink(link) {
     const match = link.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^?&]+)/);
     return match ? match[1] : '';
 }
+
+// Add images to page 2 with each image acting as a button to link to the hero information page
 
 const imgAdd = async(link, key, className) =>{
     const $img = $(`<img>`)  
@@ -81,6 +172,7 @@ const imgAdd = async(link, key, className) =>{
     $(`.section-spread`).append($img)
 }
 
+// hides a page and applies css animation to it
 
 const pageHide = (page)=>{
     $(page).removeClass(`show`)
@@ -132,7 +224,7 @@ $mapBack.on(`click`, ()=>{
 
 
 
-
+// code for populating different hero pages based on image clicked on home page
 
 for (let i of $heroImg){ 
     $(i).on(`click`, async()=>{
@@ -164,6 +256,7 @@ for (let i of $heroImg){
     })
 }
 
+// Function to populate hero information page with information about hero, including images, videos, and a youtube video
 
 const infoSetHero = async(key)=>{
     const getApi = await heroGet(key)

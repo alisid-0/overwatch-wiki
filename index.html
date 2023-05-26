@@ -157,60 +157,43 @@
 
         <div class="search-page hidden hide">
             <h1 class="page-title">Player Stats</h1>
-            <input type="text" placeholder="Enter Battle.Net ID Here">
-            <img class="player-banner" src="https://d15f34w2p8l1cc.cloudfront.net/overwatch/55d8c21e9d8b14942c26c4028059b6cd3b4e2fea40a139821ecee73a0005126f.png" alt="">
-            <div class="player-info">
-                <div class="name-img" style="display: flex;">
-                    <h2 id="username">Username: mustang </h2>
-                    <img class="player-icon" style="width: 100px;" src="https://d15f34w2p8l1cc.cloudfront.net/overwatch/33c15d3ce7b4d3b9bd03234faa7c7806d7e28bfc9a9f3fe7014b5986c9453d5c.png" alt="">
-                </div>
-                <h2 class="player-title">Title: Diamond Challenger</h2>
-                <div class="endorsement" style="display: flex;">
-                    <h2 class="endorsement-level">Endorsement Level: 1</h2>
-                    <img src="https://static.playoverwatch.com/img/pages/career/icons/endorsement/1-9de6d43ec5.svg#icon"  style="width: 100px;" alt="">
-                </div>
+            
+            <img class="player-banner" src="" alt="">
+            <div class="input-button">
+                <input type="text" placeholder="Enter Battle.Net ID">
+                <button id="player-search-button">Go!</button>
             </div>
-            <div class="ranks">
-                <div class="systems">
-                    <div class="pc">
-                        <h2 class="pc-title">PC</h2>
-                        <div class="rank-roles">
-                            <div class="tank">
-                                <img class="rank-icon" class="tank-rank-icon" src="" alt="">
-                                <h2 class="tank-division"> <span class="tank-tier"></span></h2>
-                            </div>
-                            <div class="damage">
-                                <img class="rank-icon" class="damage-rank-icon" src="https://static.playoverwatch.com/img/pages/career/icons/rank/MasterTier-4-397f8722e0.png" alt="">
-                                <h2 class="damage-division">Master <span class="damage-tier">4</span></h2>
-                            </div>
-                            <div class="support">
-                                <img class="rank-icon" class="suppport-rank-icon" src="" alt="">
-                                <h2 class="support-division"> <span class="support-tier"></span></h2>
-                            </div>
-                        </div>
+            <div class="player-container">
+                <div class="player-info">
+                    <div class="name-img" style="display: flex;">
+                        <h2 id="username"></h2>
+                        <img class="player-icon" src="" alt="">
                     </div>
-                    <div class="console">
-                        <h2 class="console-title">Console</h2>
-                        <div class="rank-roles">
-                            <div class="tank">
-                                <img class="rank-icon" class="tank-rank-icon" src="" alt="">
-                                <h2 class="tank-division"> <span class="tank-tier"></span></h2>
-                            </div>
-                            <div class="damage">
-                                <img class="rank-icon" class="damage-rank-icon" src="" alt="">
-                                <h2 class="damage-division"><span class="damage-tier"></span></h2>
-                            </div>
-                            <div class="support">
-                                <img class="rank-icon" class="suppport-rank-icon" src="" alt="">
-                                <h2 class="support-division"> <span class="support-tier"></span></h2>
-                            </div>
+                    <h2 class="player-title"></h2>
+                    <div class="endorsement" style="display: flex;">
+                        <h2 class="endorsement-level"></h2>
+                    </div>
+                    <div class="ranks">
+                        <div class="systems">
+                            <div class="pc"></div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="player-stats">
                 
+                <div class="player-stats">
+                    <button id="mode-switch">Quickplay</button>
+                    <!-- <select name="stat-select" id="">
+                        <option value="">Time Played</option>
+                        <option value="">Games Won</option>
+                    </select> -->
+                    <ul>
+                        <li><button>Time Played</button></li>
+                        <li><button>Games Won</button></li>
+                    </ul>
+                </div>
             </div>
+            
+            
         </div>
 
     </main>

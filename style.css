@@ -82,8 +82,7 @@ h1{
 }
 
 h2{
-    background-color: #D9D9D9;
-    text-align: center;
+    color: white;
 }
 
 h3{
@@ -542,6 +541,124 @@ button{
 
 .rank-icon{
     width:100px;
+}
+
+.search-page{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-page h1{
+    width: 100%;
+}
+
+.search-page h2{
+    background-color: none;
+}
+
+.player-info{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.input-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.player-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.ranks{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.systems{
+    display: flex;
+    flex-direction: column;
+}
+
+.rank-roles{
+    display:flex;
+    flex-direction: row;
+    gap:0px;
+    margin: 30px;
+    margin-top: 0px;
+}
+
+.pc{
+    display: flex;
+    flex-direction: row;
+}
+
+.pc-div{
+    display: flex;
+    flex-direction: row;
+}
+
+#endorsement-img{
+    background-color: rgba(0, 0, 139, 0);
+    width: 50px;
+    height: 50px;
+}
+.rank-roles img{
+    width:100px;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.role-rank-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.player-icon{
+    width: 50px;
+    height: 50px;
+}
+
+.name-img{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 20px
+}
+
+.endorsement{
+    align-items: center;
+}
+
+.player-banner{
+    width: 100%;
+}
+
+.rank{
+    text-transform: capitalize;
+}
+
+.input-button{
+    margin-top: 20px;
+}
+
+input{
+    font-family: 'Bank Sans EF CY LigObl';
+    width: 200px;
+    text-align: center;
+    font-size: 15px;
+}
+
+ul{
+    display:inline-table;
+    list-style-type: none;
 }
 
 /* animations */
