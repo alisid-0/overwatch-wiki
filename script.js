@@ -222,6 +222,16 @@ $mapBack.on(`click`, ()=>{
     },500)
 })
 
+const $gmBack = $(`.gm-back`)
+
+$gmBack.on(`click`, ()=>{
+    pageHide($gamemodesPage)
+    setTimeout(() => {
+        $header.removeClass(`hide`)
+        $header.addClass(`show`)
+        $(`.home-page`).removeClass(`hide`)
+    }, 500);
+})
 
 
 // code for populating different hero pages based on image clicked on home page
