@@ -219,6 +219,7 @@ $mapBack.on(`click`, ()=>{
         $header.removeClass(`hide`)
         $header.addClass(`show`)
         $(`.home-page`).removeClass(`hide`)
+        $(`.map-info-div`).remove()
     },500)
 })
 
@@ -230,6 +231,7 @@ $gmBack.on(`click`, ()=>{
         $header.removeClass(`hide`)
         $header.addClass(`show`)
         $(`.home-page`).removeClass(`hide`)
+        $(`.gm-div`).remove()
     }, 500);
 })
 
